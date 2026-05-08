@@ -4,7 +4,7 @@ metadata:
   name: memcached
   namespace: vprofile
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: memcached
@@ -18,10 +18,10 @@ spec:
           image: k8s-self-managed-503459125797-dev-memcached
           resources:
             requests:
-              cpu: 50m
+              cpu: 25m
               memory: 256Mi
             limits:
-              cpu: 250m
+              cpu: 200m
               memory: 512Mi
           ports:
             - containerPort: 11211

@@ -6,6 +6,7 @@ resources:
   - memcached.yaml
   - rabbitmq.yaml
   - apps.yaml
+  - namespace.yaml
   - ingress.yaml
   - hpa/mysql.yaml
   - hpa/memcached.yaml
