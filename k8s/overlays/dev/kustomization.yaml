@@ -1,0 +1,34 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# يـ override الـ namespace في كل الـ resources اللي جاية من الـ base
+namespace: vprofile-dev
+
+resources:
+  - ../../
+
+# الـ Namespace object اسمه vprofile في الـ base.
+# الـ override فوق هيـ rename الـ Namespace resource نفسه لـ vprofile-dev،
+# فمش محتاج تطبق namespace-dev.yaml يدويًا.
+
+# الـ PersistentVolume cluster-scoped (مش namespaced) فالـ namespace
+# مش بيأثر عليه. بنغير اسمه ومساره عشان ما يتعارضش مع الـ prod
+# اللي شغّال على نفس الـ PV.
+patches:
+  - target:
+      kind: PersistentVolume
+      name: mysql-pv
+    patch: |-
+      - op: replace
+        path: /metadata/name
+        value: mysql-pv-dev
+      - op: replace
+        path: /spec/hostPath/path
+        value: /mnt/k8s/mysql-dev
+  - target:
+      kind: PersistentVolumeClaim
+      name: mysql-pvc
+    patch: |-
+      - op: replace
+        path: /spec/volumeName
+        value: mysql-pv-dev
