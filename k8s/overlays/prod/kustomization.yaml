@@ -5,3 +5,12 @@ namespace: vprofile
 
 resources:
   - ../../base
+
+patches:
+  - target:
+      kind: Ingress
+      name: apps-ingress
+    patch: |-
+      - op: replace
+        path: /spec/rules/0/host
+        value: el30mda.local

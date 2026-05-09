@@ -29,3 +29,10 @@ patches:
       - op: replace
         path: /spec/volumeName
         value: mysql-pv-dev
+  - target:
+      kind: Ingress
+      name: apps-ingress
+    patch: |-
+      - op: replace
+        path: /spec/rules/0/host
+        value: dev.el30mda.local
