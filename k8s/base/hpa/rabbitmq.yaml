@@ -8,8 +8,9 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: rabbitmq
+  # Stateful broker + single PVC pattern: never scale past 1 replica.
   minReplicas: 1
-  maxReplicas: 3
+  maxReplicas: 1
   metrics:
     - type: Resource
       resource:

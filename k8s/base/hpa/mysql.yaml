@@ -8,8 +8,9 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: mysql
+  # Single RWO PVC: only one mysql replica can bind.
   minReplicas: 1
-  maxReplicas: 3
+  maxReplicas: 1
   metrics:
     - type: Resource
       resource:
