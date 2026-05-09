@@ -1,19 +1,16 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-# يـ override الـ namespace في كل الـ resources اللي جاية من الـ base
 namespace: vprofile-dev
 
 resources:
-  - ../../
+  - ../../base
 
-# الـ Namespace object اسمه vprofile في الـ base.
-# الـ override فوق هيـ rename الـ Namespace resource نفسه لـ vprofile-dev،
-# فمش محتاج تطبق namespace-dev.yaml يدويًا.
+# الـ Namespace object في الـ base اسمه `vprofile`. السطر `namespace: vprofile-dev`
+# فوق هيـ rename الـ Namespace resource نفسه لـ `vprofile-dev` تلقائيًا.
 
-# الـ PersistentVolume cluster-scoped (مش namespaced) فالـ namespace
-# مش بيأثر عليه. بنغير اسمه ومساره عشان ما يتعارضش مع الـ prod
-# اللي شغّال على نفس الـ PV.
+# الـ PersistentVolume cluster-scoped، فلازم نديله اسم ومسار مختلفين
+# عن الـ prod عشان الاتنين يقدروا يشتغلوا في نفس الـ cluster من غير تعارض.
 patches:
   - target:
       kind: PersistentVolume
